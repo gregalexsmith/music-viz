@@ -39,7 +39,7 @@ pnpm-debug.log*
 Thumbs.db
 
 # ---------- MusicViz ----------
-# Local project data lives in ~/MusicViz by default; ignore any in-repo copies.
+# Local project data (audio, stems, fingerprints, scenes) lives in ./projects/.
 projects/
 *.wav
 *.mp3

@@ -13,8 +13,8 @@ When the user asks for a new visual / scene / interactive world, scaffold it as 
 - **TS types for the timeline:** `backend/musicviz/scenes/sdk/timeline.d.ts`
 - **Starter templates:** `backend/musicviz/scenes/templates/`
 
-Per-project scenes live at `~/MusicViz/projects/{projectId}/scenes/{sceneId}/`
-(path is set by `MUSICVIZ_PROJECTS_ROOT`). Each scene is plain HTML + JS — no
+Per-project scenes live at `./projects/{projectId}/scenes/{sceneId}/` in the
+repo by default (override with `MUSICVIZ_PROJECTS_ROOT`). Each scene is plain HTML + JS — no
 build step. The ScenePlayer view embeds them in a sandboxed iframe and drives
 them with the audio playhead via `postMessage`.
 

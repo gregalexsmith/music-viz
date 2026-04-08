@@ -8,8 +8,10 @@ from pathlib import Path
 FINGERPRINT_VERSION = "1.0"
 PROJECT_VERSION = "1.0"
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
 DEFAULT_PROJECTS_ROOT = Path(
-    os.environ.get("MUSICVIZ_PROJECTS_ROOT", str(Path.home() / "MusicViz" / "projects"))
+    os.environ.get("MUSICVIZ_PROJECTS_ROOT", str(REPO_ROOT / "projects"))
 ).expanduser()
 
 DEFAULT_SETTINGS = {
