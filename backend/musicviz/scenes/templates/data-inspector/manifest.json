@@ -1,0 +1,7 @@
+{
+  "name": "Data Inspector",
+  "description": "Showcase scene that visualizes every field in the timeline: song metadata, beat/bar position, per-stem energy and spectral features, chroma, MFCCs, spectral contrast, and the section timeline. Useful as a reference for what data is available to author scenes against.",
+  "entry": "index.html",
+  "version": "1.0",
+  "capabilities": ["timeline"]
+}

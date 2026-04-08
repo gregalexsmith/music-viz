@@ -35,4 +35,6 @@ Vite proxies `/api` and `/ws` to the backend on port 8765.
 
 ## Examples
 
+![./examples/data-viz.gif](./examples/data-viz.gif)
+
 ![./examples/particles-1.gif](./examples/particles-1.gif)
