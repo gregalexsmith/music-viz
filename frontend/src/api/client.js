@@ -52,10 +52,22 @@ export const api = {
   getWaveform: (projectId, songId, points = 1000) =>
     req('GET', `/projects/${projectId}/songs/${songId}/waveform?points=${points}`),
 
+  // Scenes
+  listScenes: (projectId) => req('GET', `/projects/${projectId}/scenes`),
+  createScene: (projectId, templateId, name) =>
+    req('POST', `/projects/${projectId}/scenes`, { templateId, name }),
+  deleteScene: (projectId, sceneId) =>
+    req('DELETE', `/projects/${projectId}/scenes/${sceneId}`),
+  listSceneTemplates: () => req('GET', `/scene-templates`),
+
   // URLs (not fetched as JSON)
   audioUrl: (projectId, songId) => `${BASE}/projects/${projectId}/songs/${songId}/audio`,
   stemUrl: (projectId, songId, stem) =>
     `${BASE}/projects/${projectId}/songs/${songId}/stems/${stem}`,
+  timelineUrl: (projectId, songId) =>
+    `${BASE}/projects/${projectId}/songs/${songId}/timeline`,
+  sceneEntryUrl: (projectId, sceneId, entry = 'index.html') =>
+    `${BASE}/projects/${projectId}/scenes/${sceneId}/${entry}`,
 };
 
 export function openPipelineSocket(jobId, onEvent) {

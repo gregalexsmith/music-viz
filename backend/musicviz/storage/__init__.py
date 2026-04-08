@@ -7,6 +7,15 @@ from .projects import (
     get_project,
     list_projects,
 )
+from .scenes import (
+    create_scene_from_template,
+    delete_scene,
+    list_scenes,
+    list_templates,
+    scene_file,
+    sdk_file,
+    template_file,
+)
 from .songs import (
     add_song,
     get_song,
@@ -26,4 +35,11 @@ __all__ = [
     "list_songs",
     "remove_song",
     "update_song",
+    "create_scene_from_template",
+    "delete_scene",
+    "list_scenes",
+    "list_templates",
+    "scene_file",
+    "sdk_file",
+    "template_file",
 ]

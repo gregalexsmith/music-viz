@@ -55,6 +55,10 @@ class ProjectStore:
     def audio_dir(self) -> Path:
         return self.dir / "library" / "audio"
 
+    @property
+    def scenes_dir(self) -> Path:
+        return self.dir / "scenes"
+
     def audio_path(self, song: dict[str, Any]) -> Path:
         return self.audio_dir / song["audio_file"]
 

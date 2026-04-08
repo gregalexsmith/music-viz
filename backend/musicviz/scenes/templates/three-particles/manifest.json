@@ -1,0 +1,7 @@
+{
+  "name": "Three Particles",
+  "description": "three.js particle field that rotates with vocals.centroid and explodes outward on drum hits.",
+  "entry": "index.html",
+  "version": "1.0",
+  "capabilities": ["timeline"]
+}

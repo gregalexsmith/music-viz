@@ -2,6 +2,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import ProjectHome from './views/ProjectHome.jsx';
 import Library from './views/Library.jsx';
 import FingerprintDetail from './views/FingerprintDetail.jsx';
+import ScenePlayer from './views/ScenePlayer.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -26,6 +27,10 @@ export default function App() {
           <Route
             path="/projects/:projectId/songs/:songId"
             element={<FingerprintDetail />}
+          />
+          <Route
+            path="/projects/:projectId/songs/:songId/play"
+            element={<ScenePlayer />}
           />
         </Routes>
       </main>

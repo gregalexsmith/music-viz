@@ -78,12 +78,20 @@ export default function FingerprintDetail() {
 
   return (
     <div className="max-w-6xl mx-auto p-10">
-      <Link
-        to={`/projects/${projectId}`}
-        className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block"
-      >
-        ← Back to library
-      </Link>
+      <div className="flex items-center justify-between mb-4">
+        <Link
+          to={`/projects/${projectId}`}
+          className="text-indigo-400 hover:text-indigo-300 text-sm"
+        >
+          ← Back to library
+        </Link>
+        <Link
+          to={`/projects/${projectId}/songs/${songId}/play`}
+          className="text-sm px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white"
+        >
+          Play scenes →
+        </Link>
+      </div>
       <header className="mb-6">
         <h1 className="text-3xl font-bold">{timeline.song_title}</h1>
         <div className="flex gap-6 mt-2 text-sm text-zinc-400">

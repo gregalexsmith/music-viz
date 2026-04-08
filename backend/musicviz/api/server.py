@@ -14,6 +14,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
 from ..pipeline import PipelineEngine
+from .scenes import create_scenes_router
 from ..storage import (
     ProjectStore,
     add_song,
@@ -41,6 +42,8 @@ def create_app() -> FastAPI:
     )
     engine = PipelineEngine()
     app.state.engine = engine
+
+    app.include_router(create_scenes_router())
 
     # ---------------- Projects ----------------
 

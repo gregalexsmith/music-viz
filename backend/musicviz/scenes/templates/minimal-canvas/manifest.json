@@ -1,0 +1,7 @@
+{
+  "name": "Minimal Canvas",
+  "description": "Bare 2D canvas hello-world. A circle that pulses on drum energy and flashes on every downbeat.",
+  "entry": "index.html",
+  "version": "1.0",
+  "capabilities": ["timeline"]
+}
