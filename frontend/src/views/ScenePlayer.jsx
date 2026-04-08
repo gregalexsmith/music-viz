@@ -9,6 +9,7 @@ export default function ScenePlayer() {
   const [scenes, setScenes] = useState([]);
   const [templates, setTemplates] = useState([]);
   const [activeSceneId, setActiveSceneId] = useState(null);
+  const [reloadNonce, setReloadNonce] = useState(0);
   const [error, setError] = useState(null);
   const [creating, setCreating] = useState(false);
   const audioRef = useRef(null);
@@ -52,6 +53,10 @@ export default function ScenePlayer() {
   // Listen for scene-ready handshake from iframe
   useEffect(() => {
     sceneReadyRef.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSceneId, reloadNonce]);
+
+  useEffect(() => {
     const onMsg = (ev) => {
       const msg = ev.data;
       if (!msg || typeof msg !== 'object') return;
@@ -135,12 +140,21 @@ export default function ScenePlayer() {
         </select>
 
         {activeSceneId && (
-          <button
-            onClick={() => handleDelete(activeSceneId)}
-            className="text-xs text-red-400 hover:text-red-300"
-          >
-            delete
-          </button>
+          <>
+            <button
+              onClick={() => setReloadNonce((n) => n + 1)}
+              className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+              title="Reload the scene iframe"
+            >
+              ↻ reload
+            </button>
+            <button
+              onClick={() => handleDelete(activeSceneId)}
+              className="text-xs text-red-400 hover:text-red-300"
+            >
+              delete
+            </button>
+          </>
         )}
 
         <span className="text-zinc-600">|</span>
@@ -168,7 +182,7 @@ export default function ScenePlayer() {
       <div className="flex-1 min-h-0 bg-black">
         {sceneSrc ? (
           <iframe
-            key={activeSceneId}
+            key={`${activeSceneId}:${reloadNonce}`}
             ref={iframeRef}
             src={sceneSrc}
             sandbox="allow-scripts allow-same-origin"
