@@ -2,6 +2,10 @@
 
 Local-first music fingerprinting and visualization system.
 
+1. Create a project, upload music
+2. Fingerprint the music - creating a datafile for each song
+3. Create scenes that work with any data file. Scenes are currenly stored per-project
+
 ```
 music-viz/
 ├── backend/        Python — FastAPI server + fingerprinting pipeline
