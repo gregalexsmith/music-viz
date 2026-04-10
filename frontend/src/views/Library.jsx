@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useStore } from '../store/useStore.js';
+import { api } from '../api/client.js';
 
 export default function Library() {
   const { projectId } = useParams();
@@ -9,6 +10,29 @@ export default function Library() {
   const [error, setError] = useState(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+  const audioRef = useRef(null);
+  const [playingSongId, setPlayingSongId] = useState(null);
+
+  function togglePlay(songId) {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playingSongId === songId) {
+      audio.pause();
+      setPlayingSongId(null);
+    } else {
+      audio.src = api.audioUrl(projectId, songId);
+      audio.play();
+      setPlayingSongId(songId);
+    }
+  }
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onEnded = () => setPlayingSongId(null);
+    audio.addEventListener('ended', onEnded);
+    return () => audio.removeEventListener('ended', onEnded);
+  }, []);
 
   useEffect(() => {
     openProject(projectId).catch((e) => setError(e.message));
@@ -37,6 +61,7 @@ export default function Library() {
 
   return (
     <div className="max-w-5xl mx-auto p-10">
+      <audio ref={audioRef} className="hidden" />
       <header className="mb-8">
         <h1 className="text-3xl font-bold">{currentProject.name}</h1>
         <p className="text-zinc-500 text-sm">
@@ -83,6 +108,8 @@ export default function Library() {
                 song={song}
                 job={jobs[song.id]}
                 projectId={projectId}
+                isPlaying={playingSongId === song.id}
+                onTogglePlay={() => togglePlay(song.id)}
                 onFingerprint={() => startFingerprint(song.id)}
                 onRemove={() => removeSong(song.id)}
               />
@@ -94,7 +121,7 @@ export default function Library() {
   );
 }
 
-function SongRow({ song, job, projectId, onFingerprint, onRemove }) {
+function SongRow({ song, job, projectId, isPlaying, onTogglePlay, onFingerprint, onRemove }) {
   const status = job?.status ?? song.fingerprint_status ?? 'idle';
   const overall = job?.overall ?? (song.fingerprinted ? 1 : 0);
   const isRunning = status === 'running';
@@ -111,6 +138,13 @@ function SongRow({ song, job, projectId, onFingerprint, onRemove }) {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={onTogglePlay}
+            className="text-lg w-8 h-8 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
+            title={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isPlaying ? '⏸' : '▶'}
+          </button>
           <StatusBadge status={status} done={isDone} />
           {isDone && (
             <Link
